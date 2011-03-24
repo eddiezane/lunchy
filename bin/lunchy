@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.dirname(__FILE__) + "/../lib" if $0 == __FILE__
+require 'optparse'
+require 'lunchy'
+
+CONFIG = { :verbose => false }
+OPERATIONS = %w(start stop restart ls status)
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
+
+  opts.on("-v", "--verbose", "Show command executions") do |verbose|
+    CONFIG[:verbose] = true
+  end
+  
+  opts.separator <<-EOS
+
+Supported commands:
+
+ ls [pattern]       Show the list of installed agents, with optional [pattern] filter
+ start [pattern]    Start the first agent matching [pattern]
+ stop [pattern]     Stop the first agent matching [pattern]
+ restart [pattern]  Stop and start the first agent matching [pattern]
+ status [pattern]   Show the PID and label for all agents, with optional [pattern] filter
+
+Example:
+ lunchy ls
+ lunchy start redis
+ lunchy stop mongo
+ lunchy status mysql
+EOS
+end
+option_parser.parse!
+
+
+op = ARGV.shift
+if OPERATIONS.include?(op)
+  begin
+    Lunchy.new.send(op.to_sym, ARGV)
+  rescue ArgumentError => ex
+    puts ex.message
+  rescue Exception => e
+    puts "Uh oh, I didn't expect this:"
+    puts e.message
+    puts e.backtrace.join("\n")
+  end
+else
+  puts option_parser.help
+end
