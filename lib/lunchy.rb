@@ -4,17 +4,27 @@ class Lunchy
   def start(params)
     raise ArgumentError, "start [name]" if params.empty?
     name = params[0]
-    (_, file) = plists.detect { |k,v| k =~ /#{name}/i }
-    return puts "No daemon found matching '#{name}'" if !name
-    execute("launchctl load #{file}")
+    files = plists.select {|k,v| k =~ /#{name}/i }
+    if files.length > 1
+      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
+    elsif files.length == 0
+      return puts "No daemon found matching '#{name}'" if !name
+    else
+      execute("launchctl load #{files.values.first.inspect}")
+    end
   end
 
   def stop(params)
     raise ArgumentError, "stop [name]" if params.empty?
     name = params[0]
-    (_, file) = plists.detect { |k,v| k =~ /#{name}/i }
-    return puts "No daemon found matching '#{name}'" if !name
-    execute("launchctl unload #{file}")
+    files = plists.select {|k,v| k =~ /#{name}/i }
+    if files.length > 1
+      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
+    elsif files.length == 0
+      return puts "No daemon found matching '#{name}'" if !name
+    else
+      execute("launchctl unload #{files.values.first.inspect}")
+    end
   end
 
   def restart(params)
