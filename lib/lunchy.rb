@@ -34,6 +34,7 @@ class Lunchy
     agents = agents.grep(/#{params[0]}/) if !params.empty?
     puts agents.sort.join("\n")
   end
+  alias_method :list, :ls
   
   private
 

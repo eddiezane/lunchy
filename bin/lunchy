@@ -5,7 +5,7 @@ require 'optparse'
 require 'lunchy'
 
 CONFIG = { :verbose => false }
-OPERATIONS = %w(start stop restart ls status)
+OPERATIONS = %w(start stop restart ls list status)
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
@@ -19,6 +19,7 @@ option_parser = OptionParser.new do |opts|
 Supported commands:
 
  ls [pattern]       Show the list of installed agents, with optional [pattern] filter
+ list [pattern]     Alias for 'ls'
  start [pattern]    Start the first agent matching [pattern]
  stop [pattern]     Stop the first agent matching [pattern]
  restart [pattern]  Stop and start the first agent matching [pattern]
