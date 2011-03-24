@@ -5,7 +5,7 @@ A friendly wrapper for launchctl.  Start your agents and go to lunch!
 
 Don't you hate launchctl?  You have to give it exact names/files.  The syntax is annoying different from Linux's init system and overly verbose.  It's just not a very developer-friendly tool.
 
-Lunch aims to be that friendly tool by wrapping launchctl and providing a few simple operations that you perform all the time:
+Lunchy aims to be that friendly tool by wrapping launchctl and providing a few simple operations that you perform all the time:
 
  - ls [pattern]
  - start [pattern]
@@ -40,7 +40,7 @@ Installation
 
     gem install lunchy
 
-Lunch is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
+Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
 
 About
 -----------------
