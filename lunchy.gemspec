@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Mike Perham"]
   s.email       = ["mperham@gmail.com"]
-  s.homepage    = "http://github.com/mperham/lunch"
+  s.homepage    = "http://github.com/mperham/lunchy"
   s.summary     = s.description = %q{Friendly wrapper around launchctl}
 
   s.files         = `git ls-files`.split("\n")
