@@ -10,7 +10,7 @@ class Lunchy
     elsif files.length == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
-      execute("launchctl load #{files.values.first.inspect}")
+      execute("launchctl load -w #{files.values.first.inspect}")
     end
   end
 
@@ -23,7 +23,7 @@ class Lunchy
     elsif files.length == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
-      execute("launchctl unload #{files.values.first.inspect}")
+      execute("launchctl unload -w #{files.values.first.inspect}")
     end
   end
 
