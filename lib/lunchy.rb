@@ -35,6 +35,10 @@ class Lunchy
   def status(params)
     pattern = params[0]
     cmd = "launchctl list"
+    if !verbose?
+      agents = "(" + plists.keys.join("|") + ")"
+      cmd << " | grep -i -E \"#{agents}\""
+    end
     cmd << " | grep -i \"#{pattern}\"" if pattern
     execute(cmd)
   end
