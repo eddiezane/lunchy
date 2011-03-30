@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class Lunchy
   VERSION = '0.2.0'
 
