@@ -1,5 +1,5 @@
 class Lunchy
-  VERSION = '0.1.1'
+  VERSION = '0.2.0'
 
   def start(params)
     raise ArgumentError, "start [name]" if params.empty?
@@ -61,8 +61,8 @@ class Lunchy
     @plists ||= begin
       plists = {}
       %w(/Library/LaunchAgents ~/Library/LaunchAgents).each do |dir|
-        Dir["#{File.expand_path(dir)}/*.plist"].each do |filename|
-          plists[File.basename(filename, ".plist")] = filename
+        Dir["#{File.expand_path(dir)}/*.plist"].inject(plists) do |memo, filename|
+          memo[File.basename(filename, ".plist")] = filename; memo
         end
       end
       plists

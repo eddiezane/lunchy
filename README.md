@@ -32,7 +32,7 @@ and:
     io.redis.redis-server
     org.mongodb.mongod
 
-Lunchy isn't a great name but gem names are like domains, most of the good ones are taken.  :-(
+The original name was supposed to be launchy.  Lunchy isn't a great name but gem names are like domains, most of the good ones are taken.  :-(
 
 
 Installation
