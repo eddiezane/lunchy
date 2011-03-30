@@ -5,7 +5,7 @@ require 'optparse'
 require 'lunchy'
 
 CONFIG = { :verbose => false }
-OPERATIONS = %w(start stop restart ls list status)
+OPERATIONS = %w(start stop restart ls list status install)
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
@@ -13,7 +13,7 @@ option_parser = OptionParser.new do |opts|
   opts.on("-v", "--verbose", "Show command executions") do |verbose|
     CONFIG[:verbose] = true
   end
-  
+
   opts.separator <<-EOS
 
 Supported commands:
@@ -24,12 +24,14 @@ Supported commands:
  stop [pattern]     Stop the first agent matching [pattern]
  restart [pattern]  Stop and start the first agent matching [pattern]
  status [pattern]   Show the PID and label for all agents, with optional [pattern] filter
+ install [file]     Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
 
 Example:
  lunchy ls
  lunchy start redis
  lunchy stop mongo
  lunchy status mysql
+ lunchy install /usr/local/Cellar/redis/2.2.2/io.redis.redis-server.plist
 EOS
 end
 option_parser.parse!

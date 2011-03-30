@@ -42,14 +42,25 @@ class Lunchy
     cmd << " | grep -i \"#{pattern}\"" if pattern
     execute(cmd)
   end
-  
+
   def ls(params)
     agents = plists.keys
     agents = agents.grep(/#{params[0]}/) if !params.empty?
     puts agents.sort.join("\n")
   end
   alias_method :list, :ls
-  
+
+  def install(params)
+    raise ArgumentError, "install [file]" if params.empty?
+    filename = params[0]
+    %w(~/Library/LaunchAgents /Library/LaunchAgents).each do |dir|
+      if Dir.exist?(File.expand_path(dir))
+        FileUtils.cp filename, File.join(File.expand_path(dir), File.basename(filename))
+        return puts "#{filename} installed to #{dir}"
+      end
+    end
+  end
+
   private
 
   def execute(cmd)
