@@ -5,9 +5,10 @@ class Lunchy
     raise ArgumentError, "start [name]" if params.empty?
     name = params[0]
     files = plists.select {|k,v| k =~ /#{name}/i }
-    if files.length > 1
+    files = Hash[files] if files.is_a?(Array) # ruby 1.8
+    if files.size > 1
       return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
-    elsif files.length == 0
+    elsif files.size == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
       execute("launchctl load #{files.values.first.inspect}")
@@ -18,9 +19,10 @@ class Lunchy
     raise ArgumentError, "stop [name]" if params.empty?
     name = params[0]
     files = plists.select {|k,v| k =~ /#{name}/i }
-    if files.length > 1
+    files = Hash[files] if files.is_a?(Array) # ruby 1.8
+    if files.size > 1
       return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
-    elsif files.length == 0
+    elsif files.size == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
       execute("launchctl unload #{files.values.first.inspect}")
