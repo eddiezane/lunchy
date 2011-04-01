@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.3.0
+ - New 'install' command to install new plist files (spagalloco)
+ - Support persistent start/stop
+ - Fix Ruby 1.8 issues, thanks tmm1!
+
 0.2.0
  - Only show agents with plists by default (fhemberger)
  - Warn and stop if pattern matches multiple agents (andyjeffries)

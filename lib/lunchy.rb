@@ -1,10 +1,10 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.2.0'
+  VERSION = '0.3.0'
 
   def start(params)
-    raise ArgumentError, "start [name]" if params.empty?
+    raise ArgumentError, "start [-w] [name]" if params.empty?
     name = params[0]
     files = plists.select {|k,v| k =~ /#{name}/i }
     files = Hash[files] if files.is_a?(Array) # ruby 1.8
@@ -13,12 +13,12 @@ class Lunchy
     elsif files.size == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
-      execute("launchctl load #{files.values.first.inspect}")
+      execute("launchctl load #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
     end
   end
 
   def stop(params)
-    raise ArgumentError, "stop [name]" if params.empty?
+    raise ArgumentError, "stop [-w] [name]" if params.empty?
     name = params[0]
     files = plists.select {|k,v| k =~ /#{name}/i }
     files = Hash[files] if files.is_a?(Array) # ruby 1.8
@@ -27,13 +27,13 @@ class Lunchy
     elsif files.size == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
-      execute("launchctl unload #{files.values.first.inspect}")
+      execute("launchctl unload #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
     end
   end
 
   def restart(params)
-    stop(params)
-    start(params)
+    stop(params.dup)
+    start(params.dup)
   end
 
   def status(params)

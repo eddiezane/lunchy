@@ -4,7 +4,7 @@ $LOAD_PATH << File.dirname(__FILE__) + "/../lib" if $0 == __FILE__
 require 'optparse'
 require 'lunchy'
 
-CONFIG = { :verbose => false }
+CONFIG = { :verbose => false, :write => false }
 OPERATIONS = %w(start stop restart ls list status install)
 
 option_parser = OptionParser.new do |opts|
@@ -14,21 +14,27 @@ option_parser = OptionParser.new do |opts|
     CONFIG[:verbose] = true
   end
 
+  opts.on("-w", "--write", "Persist command") do |verbose|
+    CONFIG[:write] = true
+  end
+
   opts.separator <<-EOS
 
 Supported commands:
 
- ls [pattern]       Show the list of installed agents, with optional [pattern] filter
- list [pattern]     Alias for 'ls'
- start [pattern]    Start the first agent matching [pattern]
- stop [pattern]     Stop the first agent matching [pattern]
- restart [pattern]  Stop and start the first agent matching [pattern]
- status [pattern]   Show the PID and label for all agents, with optional [pattern] filter
- install [file]     Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
+ ls [pattern]           Show the list of installed agents, with optional [pattern] filter
+ list [pattern]         Alias for 'ls'
+ start [-w] [pattern]   Start the first agent matching [pattern]
+ stop [-w] [pattern]    Stop the first agent matching [pattern]
+ restart [pattern]      Stop and start the first agent matching [pattern]
+ status [pattern]       Show the PID and label for all agents, with optional [pattern] filter
+ install [file]         Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
+
+-w will persist the start/stop command so the agent will load on startup or never load, respectively.
 
 Example:
  lunchy ls
- lunchy start redis
+ lunchy start -w redis
  lunchy stop mongo
  lunchy status mysql
  lunchy install /usr/local/Cellar/redis/2.2.2/io.redis.redis-server.plist
