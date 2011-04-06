@@ -43,6 +43,14 @@ Installation
 Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
 
 
+Thanks
+---------------
+
+Thanks to all the individual contributors who've improved Lunchy, see credits in History.md.
+
+Lunchy was written as part of my project time at [Carbon Five](http://carbonfive.com).  [We're hiring](http://carbonfive.com/view/page.basic/jobs) if you love working on Ruby and open source.
+
+
 About
 -----------------
 
