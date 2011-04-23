@@ -58,7 +58,7 @@ class Lunchy
     raise ArgumentError, "install [file]" if params.empty?
     filename = params[0]
     %w(~/Library/LaunchAgents /Library/LaunchAgents).each do |dir|
-      if Dir.exist?(File.expand_path(dir))
+      if File.exist?(File.expand_path(dir))
         FileUtils.cp filename, File.join(File.expand_path(dir), File.basename(filename))
         return puts "#{filename} installed to #{dir}"
       end
