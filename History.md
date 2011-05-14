@@ -1,10 +1,11 @@
 Changes
 ================
 
-HEAD
+0.4.0
 -----
 
 - Fix install on 1.8.7 (marshally)
+- Allow management of daemons in /Library/LaunchDaemons when lunchy is run as root
 
 0.3.0
 -----

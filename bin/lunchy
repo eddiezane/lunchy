@@ -38,6 +38,8 @@ Example:
  lunchy stop mongo
  lunchy status mysql
  lunchy install /usr/local/Cellar/redis/2.2.2/io.redis.redis-server.plist
+
+Note: if you run lunchy as root, you can manage daemons in /Library/LaunchDaemons also.
 EOS
 end
 option_parser.parse!

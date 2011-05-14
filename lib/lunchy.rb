@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.3.0'
+  VERSION = '0.4.0'
 
   def start(params)
     raise ArgumentError, "start [-w] [name]" if params.empty?
@@ -75,13 +75,23 @@ class Lunchy
   def plists
     @plists ||= begin
       plists = {}
-      %w(/Library/LaunchAgents ~/Library/LaunchAgents).each do |dir|
+      dirs.each do |dir|
         Dir["#{File.expand_path(dir)}/*.plist"].inject(plists) do |memo, filename|
           memo[File.basename(filename, ".plist")] = filename; memo
         end
       end
       plists
     end
+  end
+
+  def dirs
+    result = %w(/Library/LaunchAgents ~/Library/LaunchAgents)
+    result << '/Library/LaunchDaemons' if root?
+    result
+  end
+
+  def root?
+    Process.euid == 0
   end
 
   # def daemons
