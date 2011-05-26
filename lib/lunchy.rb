@@ -65,6 +65,25 @@ class Lunchy
     end
   end
 
+  def edit(params)
+    raise ArgumentError, "edit [name]" if params.empty?
+    name = params[0]
+    files = plists.select {|k,v| k =~ /#{name}/i }
+    files = Hash[files] if files.is_a?(Array) # ruby 1.8
+    if files.size > 1
+      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
+    elsif files.size == 0
+      return puts "No daemon found matching '#{name}'" if !name
+    else
+      editor = ENV['EDITOR']
+      if editor.nil?
+        raise 'EDITOR environment variable is not set'
+      else
+        execute("#{editor} #{files.values.first.inspect} > `tty`")
+      end
+    end
+  end
+
   private
 
   def execute(cmd)
