@@ -14,6 +14,7 @@ class Lunchy
       return puts "No daemon found matching '#{name}'" if !name
     else
       execute("launchctl load #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
+      puts "started #{files.keys.first}"
     end
   end
 
@@ -28,6 +29,7 @@ class Lunchy
       return puts "No daemon found matching '#{name}'" if !name
     else
       execute("launchctl unload #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
+      puts "stopped #{files.keys.first}"
     end
   end
 
@@ -88,7 +90,8 @@ class Lunchy
 
   def execute(cmd)
     puts "Executing: #{cmd}" if verbose?
-    puts `#{cmd}`
+    emitted = `#{cmd}`
+    puts emitted unless emitted.empty?
   end
 
   def plists
