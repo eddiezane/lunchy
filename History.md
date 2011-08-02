@@ -1,6 +1,11 @@
 Changes
 ================
 
+HEAD
+----
+
+- Allow management of daemons in /System/Library/LaunchDaemons when lunchy is run as root (fhemberger)
+
 0.4.0
 -----
 
