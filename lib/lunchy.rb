@@ -108,7 +108,7 @@ class Lunchy
 
   def dirs
     result = %w(/Library/LaunchAgents ~/Library/LaunchAgents)
-    result << '/Library/LaunchDaemons' if root?
+    result.push('/Library/LaunchDaemons', '/System/Library/LaunchDaemons') if root?
     result
   end
 
