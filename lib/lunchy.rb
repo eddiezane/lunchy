@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.4.0'
+  VERSION = '0.5.0'
 
   def start(params)
     raise ArgumentError, "start [-w] [name]" if params.empty?

@@ -1,9 +1,11 @@
 Changes
 ================
 
-HEAD
+0.5.0
 ----
 
+- Add default output to start and stop (joncooper)
+- Add 'edit' command to edit the matching plist file (AndreyChernyh)
 - Allow management of daemons in /System/Library/LaunchDaemons when lunchy is run as root (fhemberger)
 
 0.4.0
