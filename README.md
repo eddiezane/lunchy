@@ -13,7 +13,8 @@ Lunchy aims to be that friendly tool by wrapping launchctl and providing a few s
  - restart [pattern]
  - status [pattern]
  - install [file]
- 
+ - edit [pattern]
+
 where pattern is just a substring that matches the agent's plist filename.  If you don't use a unique pattern, Lunchy will warn you of this and give you a list of the matching items instead.
 
 So instead of:
