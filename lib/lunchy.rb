@@ -45,6 +45,7 @@ class Lunchy
       agents = "(" + plists.keys.join("|") + ")"
       cmd << " | grep -i -E \"#{agents}\""
     end
+    cmd.gsub!('.','\.')
     cmd << " | grep -i \"#{pattern}\"" if pattern
     execute(cmd)
   end
