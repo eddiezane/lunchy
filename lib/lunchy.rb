@@ -42,8 +42,8 @@ class Lunchy
     pattern = params[0]
     cmd = "launchctl list"
     if !verbose?
-      agents = "(" + plists.keys.join("|") + ")"
-      cmd << " | grep -i -E \"#{agents}\""
+      agents = plists.keys.map { |k| "-e \"#{k}\"" }.join(" ")
+      cmd << " | grep -i #{agents}"
     end
     cmd.gsub!('.','\.')
     cmd << " | grep -i \"#{pattern}\"" if pattern
