@@ -4,7 +4,7 @@ class Lunchy
   VERSION = '0.5.0'
 
   def start(params)
-    raise ArgumentError, "start [-w] [name]" if params.empty?
+    raise ArgumentError, "start [-wF] [name]" if params.empty?
     name = params[0]
     files = plists.select {|k,v| k =~ /#{name}/i }
     files = Hash[files] if files.is_a?(Array) # ruby 1.8
@@ -13,7 +13,7 @@ class Lunchy
     elsif files.size == 0
       return puts "No daemon found matching '#{name}'" if !name
     else
-      execute("launchctl load #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
+      execute("launchctl load #{CONFIG[:force] ? '-F ' : ''}#{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
       puts "started #{files.keys.first}"
     end
   end
