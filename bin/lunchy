@@ -10,6 +10,10 @@ OPERATIONS = %w(start stop restart ls list status install edit)
 option_parser = OptionParser.new do |opts|
   opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
 
+  opts.on("-F", "--force", "Force start (disabled) agents") do |verbose|
+    CONFIG[:force] = true
+  end
+
   opts.on("-v", "--verbose", "Show command executions") do |verbose|
     CONFIG[:verbose] = true
   end
@@ -22,14 +26,14 @@ option_parser = OptionParser.new do |opts|
 
 Supported commands:
 
- ls [pattern]           Show the list of installed agents, with optional [pattern] filter
- list [pattern]         Alias for 'ls'
- start [-w] [pattern]   Start the first agent matching [pattern]
- stop [-w] [pattern]    Stop the first agent matching [pattern]
- restart [pattern]      Stop and start the first agent matching [pattern]
- status [pattern]       Show the PID and label for all agents, with optional [pattern] filter
- install [file]         Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
- edit [pattern]         Opens the launchctl daemon file in the default editor (EDITOR environment variable)
+ ls [pattern]            Show the list of installed agents, with optional [pattern] filter
+ list [pattern]          Alias for 'ls'
+ start [-wF] [pattern]   Start the first agent matching [pattern]
+ stop [-w] [pattern]     Stop the first agent matching [pattern]
+ restart [pattern]       Stop and start the first agent matching [pattern]
+ status [pattern]        Show the PID and label for all agents, with optional [pattern] filter
+ install [file]          Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
+ edit [pattern]          Opens the launchctl daemon file in the default editor (EDITOR environment variable)
 
 -w will persist the start/stop command so the agent will load on startup or never load, respectively.
 

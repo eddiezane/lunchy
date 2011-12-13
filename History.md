@@ -1,8 +1,13 @@
 Changes
 ================
 
-0.5.0
+HEAD
 ----
+
+- Allow to force start disabled agents (koraktor)
+
+0.5.0
+-----
 
 - Add default output to start and stop (joncooper)
 - Add 'edit' command to edit the matching plist file (AndreyChernyh)
