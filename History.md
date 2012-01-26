@@ -1,9 +1,10 @@
 Changes
 ================
 
-HEAD
+0.6.0
 ----
 
+- Fix 'regular expression too big' (jmazzi)
 - Allow to force start disabled agents (koraktor)
 
 0.5.0
