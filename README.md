@@ -50,7 +50,7 @@ Thanks
 
 Thanks to all the individual contributors who've improved Lunchy, see credits in History.md.
 
-Lunchy was written as part of my project time at [Carbon Five](http://carbonfive.com).  [We're hiring](http://carbonfive.com/view/page.basic/jobs) if you love working on Ruby and open source.
+Lunchy was written as part of my project time at [Carbon Five](http://carbonfive.com).  [They're hiring](http://carbonfive.com/view/page.basic/jobs) if you love working on Ruby and open source.
 
 
 About
