@@ -5,31 +5,19 @@ class Lunchy
 
   def start(params)
     raise ArgumentError, "start [-wF] [name]" if params.empty?
-    name = params[0]
-    files = plists.select {|k,v| k =~ /#{name}/i }
-    files = Hash[files] if files.is_a?(Array) # ruby 1.8
-    if files.size > 1
-      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
-    elsif files.size == 0
-      return puts "No daemon found matching '#{name}'" if !name
-    else
-      execute("launchctl load #{CONFIG[:force] ? '-F ' : ''}#{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
-      puts "started #{files.keys.first}"
+
+    with_match params[0] do |name, path|
+      execute("launchctl load #{force}#{write}#{path.inspect}")
+      puts "started #{name}"
     end
   end
 
   def stop(params)
     raise ArgumentError, "stop [-w] [name]" if params.empty?
-    name = params[0]
-    files = plists.select {|k,v| k =~ /#{name}/i }
-    files = Hash[files] if files.is_a?(Array) # ruby 1.8
-    if files.size > 1
-      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
-    elsif files.size == 0
-      return puts "No daemon found matching '#{name}'" if !name
-    else
-      execute("launchctl unload #{CONFIG[:write] ? '-w ' : ''}#{files.values.first.inspect}")
-      puts "stopped #{files.keys.first}"
+
+    with_match params[0] do |name, path|
+      execute("launchctl unload #{write}#{path.inspect}")
+      puts "stopped #{name}"
     end
   end
 
@@ -41,10 +29,12 @@ class Lunchy
   def status(params)
     pattern = params[0]
     cmd = "launchctl list"
-    if !verbose?
+
+    unless verbose?
       agents = plists.keys.map { |k| "-e \"#{k}\"" }.join(" ")
       cmd << " | grep -i #{agents}"
     end
+
     cmd.gsub!('.','\.')
     cmd << " | grep -i \"#{pattern}\"" if pattern
     execute(cmd)
@@ -70,24 +60,39 @@ class Lunchy
 
   def edit(params)
     raise ArgumentError, "edit [name]" if params.empty?
-    name = params[0]
-    files = plists.select {|k,v| k =~ /#{name}/i }
-    files = Hash[files] if files.is_a?(Array) # ruby 1.8
-    if files.size > 1
-      return puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n" + files.keys.join("\n")
-    elsif files.size == 0
-      return puts "No daemon found matching '#{name}'" if !name
-    else
+
+    with_match params[0] do |_, path|
       editor = ENV['EDITOR']
       if editor.nil?
         raise 'EDITOR environment variable is not set'
       else
-        execute("#{editor} #{files.values.first.inspect} > `tty`")
+        execute("#{editor} #{path.inspect} > `tty`")
       end
     end
   end
 
   private
+
+  def force
+    CONFIG[:force] and '-F '
+  end
+
+  def write
+    CONFIG[:write] and '-w '
+  end
+
+  def with_match name
+    files = plists.select {|k,_| k =~ /#{name}/i }
+    files = Hash[files] if files.is_a?(Array) # ruby 1.8
+
+    if files.size > 1
+      puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n#{files.keys.join("\n")}"
+    elsif files.empty?
+      puts "No daemon found matching '#{name}'" unless name
+    else
+      yield(*files.to_a.first)
+    end
+  end
 
   def execute(cmd)
     puts "Executing: #{cmd}" if verbose?
@@ -116,20 +121,6 @@ class Lunchy
   def root?
     Process.euid == 0
   end
-
-  # def daemons
-  #   @daemons ||= begin
-  #     content = `launchctl list | grep -v -i "^-\\|anonymous"`
-  #     daemons = []
-  #     content.each_line do |x|
-  #       data = x.split(' ')
-  #       daemons << {
-  #         :pid => data[0].to_i,
-  #         :name => data[2]
-  #       }
-  #     end
-  #   end
-  # end
 
   def verbose?
     CONFIG[:verbose]

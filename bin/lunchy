@@ -4,7 +4,7 @@ $LOAD_PATH << File.dirname(__FILE__) + "/../lib" if $0 == __FILE__
 require 'optparse'
 require 'lunchy'
 
-CONFIG = { :verbose => false, :write => false }
+CONFIG = {}
 OPERATIONS = %w(start stop restart ls list status install edit)
 
 option_parser = OptionParser.new do |opts|
