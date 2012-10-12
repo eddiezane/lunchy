@@ -71,6 +71,18 @@ class Lunchy
     end
   end
 
+  def info(params)
+    with_match params[0] do |name, path|
+      puts "#{name} found in #{File.dirname(path)}"
+    end
+  end
+
+  def cat(params)
+    with_match params[0] do |_, path|
+      puts File.read(path)
+    end
+  end
+
   private
 
   def force
