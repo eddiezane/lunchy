@@ -100,7 +100,7 @@ class Lunchy
     if files.size > 1
       puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n#{files.keys.join("\n")}"
     elsif files.empty?
-      puts "No daemon found matching '#{name}'" unless name
+      puts "No daemon found matching '#{name}'"
     else
       yield(*files.to_a.first)
     end
