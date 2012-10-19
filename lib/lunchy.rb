@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.6.0'
+  VERSION = '0.7.0'
 
   def start(params)
     raise ArgumentError, "start [-wF] [name]" if params.empty?
@@ -71,6 +71,18 @@ class Lunchy
     end
   end
 
+  def info(params)
+    with_match params[0] do |name, path|
+      puts "#{name} found in #{File.dirname(path)}"
+    end
+  end
+
+  def cat(params)
+    with_match params[0] do |_, path|
+      puts File.read(path)
+    end
+  end
+
   private
 
   def force
@@ -88,7 +100,7 @@ class Lunchy
     if files.size > 1
       puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n#{files.keys.join("\n")}"
     elsif files.empty?
-      puts "No daemon found matching '#{name}'" unless name
+      puts "No daemon found matching '#{name}'"
     else
       yield(*files.to_a.first)
     end
