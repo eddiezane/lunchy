@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.7.0
+----
+
+- Add info and cat commands (zaius)
+
 0.6.0
 ----
 
