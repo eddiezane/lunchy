@@ -1,6 +1,12 @@
 Changes
 ================
 
+0.7.0
+----
+
+- Add 'show' command to display contents of matching plist file (jonpierce)
+- Add '-l' option on 'ls' command to display absolute paths to plist files (jonpierce)
+
 0.6.0
 ----
 
