@@ -5,7 +5,7 @@ require 'optparse'
 require 'lunchy'
 
 CONFIG = {}
-OPERATIONS = %w(start stop restart ls list status install edit)
+OPERATIONS = %w(start stop restart ls list status install show edit)
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
@@ -22,27 +22,35 @@ option_parser = OptionParser.new do |opts|
     CONFIG[:write] = true
   end
 
+  opts.on("-l", "--long", "Display absolute paths when listing agents") do
+    CONFIG[:long] = true
+  end
+
   opts.separator <<-EOS
 
 Supported commands:
 
- ls [pattern]            Show the list of installed agents, with optional [pattern] filter
- list [pattern]          Alias for 'ls'
+ ls [-l] [pattern]       Show the list of installed agents, with optional [pattern] filter
+ list [-l] [pattern]     Alias for 'ls'
  start [-wF] [pattern]   Start the first agent matching [pattern]
  stop [-w] [pattern]     Stop the first agent matching [pattern]
  restart [pattern]       Stop and start the first agent matching [pattern]
  status [pattern]        Show the PID and label for all agents, with optional [pattern] filter
- install [file]          Installs [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
- edit [pattern]          Opens the launchctl daemon file in the default editor (EDITOR environment variable)
+ install [file]          Install [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
+ show [pattern]          Show the contents of the launchctl daemon file
+ edit [pattern]          Open the launchctl daemon file in the default editor (EDITOR environment variable)
 
 -w will persist the start/stop command so the agent will load on startup or never load, respectively.
+-l will display absolute paths of the launchctl daemon files when showing list of installed agents.
 
 Example:
  lunchy ls
+ lunchy ls -l nginx
  lunchy start -w redis
  lunchy stop mongo
  lunchy status mysql
  lunchy install /usr/local/Cellar/redis/2.2.2/io.redis.redis-server.plist
+ lunchy show redis
  lunchy edit mongo
 
 Note: if you run lunchy as root, you can manage daemons in /Library/LaunchDaemons also.

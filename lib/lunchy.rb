@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.6.0'
+  VERSION = '0.7.0'
 
   def start(params)
     raise ArgumentError, "start [-wF] [name]" if params.empty?
@@ -43,7 +43,11 @@ class Lunchy
   def ls(params)
     agents = plists.keys
     agents = agents.grep(/#{params[0]}/) if !params.empty?
-    puts agents.sort.join("\n")
+    if long
+      puts agents.map { |agent| plists[agent] }.sort.join("\n")
+    else
+      puts agents.sort.join("\n")
+    end
   end
   alias_method :list, :ls
 
@@ -55,6 +59,14 @@ class Lunchy
         FileUtils.cp filename, File.join(File.expand_path(dir), File.basename(filename))
         return puts "#{filename} installed to #{dir}"
       end
+    end
+  end
+
+  def show(params)
+    raise ArgumentError, "show [name]" if params.empty?
+
+    with_match params[0] do |_, path|
+      puts IO.read(path)
     end
   end
 
@@ -79,6 +91,10 @@ class Lunchy
 
   def write
     CONFIG[:write] and '-w '
+  end
+
+  def long
+    CONFIG[:long]
   end
 
   def with_match name
