@@ -8,7 +8,8 @@ CONFIG = {}
 OPERATIONS = %w(start stop restart ls list status install show edit)
 
 option_parser = OptionParser.new do |opts|
-  opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\nUsage: #{__FILE__} [#{OPERATIONS.join('|')}] [options]"
+  opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\n" \
+    "Usage: #{File.basename(__FILE__)} [#{OPERATIONS.join('|')}] [options]"
 
   opts.on("-F", "--force", "Force start (disabled) agents") do |verbose|
     CONFIG[:force] = true
