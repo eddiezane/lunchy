@@ -56,7 +56,7 @@ class Lunchy
     filename = params[0]
     %w(~/Library/LaunchAgents /Library/LaunchAgents).each do |dir|
       if File.exist?(File.expand_path(dir))
-        FileUtils.cp filename, File.join(File.expand_path(dir), File.basename(filename))
+        FileUtils.ln_s filename, File.join(File.expand_path(dir), File.basename(filename))
         return puts "#{filename} installed to #{dir}"
       end
     end
