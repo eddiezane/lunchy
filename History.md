@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.7.1
+----
+
+- Add 'init' command for creating a ~/Library/LunchyAgents directory for storing launch agents (epochblue)
+
 0.7.0
 ----
 

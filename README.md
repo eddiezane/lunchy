@@ -41,7 +41,8 @@ The original name was supposed to be launchy.  Lunchy isn't a great name but gem
 Installation
 ---------------
 
-    gem install lunchy
+    > gem install lunchy
+    > lunchy init
 
 Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
 
