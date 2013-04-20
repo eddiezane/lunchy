@@ -1,7 +1,7 @@
 require 'fileutils'
 
 class Lunchy
-  VERSION = '0.7.0'
+  VERSION = '0.7.1'
 
   def start(params)
     raise ArgumentError, "start [-wF] [name]" if params.empty?
@@ -51,10 +51,20 @@ class Lunchy
   end
   alias_method :list, :ls
 
+  def init(params)
+    dir = File.expand_path(dirs[0])
+    if not File.exist?(dir)
+       FileUtils.mkdir(dir)
+       return puts "Created #{dir}"
+    end
+  end
+  alias_method :setup, :init
+
   def install(params)
     raise ArgumentError, "install [file]" if params.empty?
+
     filename = params[0]
-    %w(~/Library/LaunchAgents /Library/LaunchAgents).each do |dir|
+    dirs.each do |dir|
       if File.exist?(File.expand_path(dir))
         FileUtils.cp filename, File.join(File.expand_path(dir), File.basename(filename))
         return puts "#{filename} installed to #{dir}"
@@ -129,7 +139,7 @@ class Lunchy
   end
 
   def dirs
-    result = %w(/Library/LaunchAgents ~/Library/LaunchAgents)
+    result = %w(~/Library/LunchyAgents ~/Library/LaunchAgents /Library/LaunchAgents)
     result.push('/Library/LaunchDaemons', '/System/Library/LaunchDaemons') if root?
     result
   end
