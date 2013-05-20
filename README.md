@@ -15,6 +15,8 @@ Lunchy aims to be that friendly tool by wrapping launchctl and providing a few s
  - install [file]
  - show [pattern]
  - edit [pattern]
+ - up
+ - down
 
 where pattern is just a substring that matches the agent's plist filename.  If you don't use a unique pattern, Lunchy will warn you of this and give you a list of the matching items instead.
 
@@ -44,6 +46,22 @@ Installation
     gem install lunchy
 
 Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
+
+
+Using a Lunchyfile
+------------------
+
+A <code>Lunchyfile</code> could be used to start and stop multiple agents related to a specific project. The file simply contains a list of agents or agent patterns. It can also contain comments (preceded by pound sign). Here's an example:
+
+    # NoSQL databases
+    mongo
+    redis
+
+    # PostgreSQL
+    postgres
+
+The command <code>lunchy up</code> starts all agents specified in the <code>Lunchyfile</code>.
+The command <code>lunchy down</code> stops all agents specified in the <code>Lunchyfile</code>.
 
 
 Thanks
