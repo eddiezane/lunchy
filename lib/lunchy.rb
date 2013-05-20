@@ -82,7 +82,23 @@ class Lunchy
       end
     end
   end
+  
+  LUNCHYFILE = 'Lunchyfile'
+  
+  def up(params)
+    IO.read(LUNCHYFILE).each_line do |l|
+      l = cleanup_string(l)
+      start([l]) unless l.empty?
+    end
+  end
 
+  def down(params)
+    IO.read(LUNCHYFILE).each_line do |l|
+      l = cleanup_string(l)
+      stop([l]) unless l.empty?
+    end
+  end
+  
   private
 
   def force
@@ -140,5 +156,9 @@ class Lunchy
 
   def verbose?
     CONFIG[:verbose]
+  end
+  
+  def cleanup_string(str)
+    str.chomp.gsub(/#(.+)$/, '')
   end
 end

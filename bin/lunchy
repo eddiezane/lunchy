@@ -5,7 +5,7 @@ require 'optparse'
 require 'lunchy'
 
 CONFIG = {}
-OPERATIONS = %w(start stop restart ls list status install show edit)
+OPERATIONS = %w(start stop restart ls list status install show edit up down)
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Lunchy #{Lunchy::VERSION}, the friendly launchctl wrapper\n" \
@@ -40,6 +40,8 @@ Supported commands:
  install [file]          Install [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
  show [pattern]          Show the contents of the launchctl daemon file
  edit [pattern]          Open the launchctl daemon file in the default editor (EDITOR environment variable)
+ up                      Start all agents listed in local Lunchyfile
+ down                    Stop all agents listed in local Lunchyfile
 
 -w will persist the start/stop command so the agent will load on startup or never load, respectively.
 -l will display absolute paths of the launchctl daemon files when showing list of installed agents.
