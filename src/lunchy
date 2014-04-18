@@ -8,35 +8,35 @@ set -o nounset # avoid use of undefined variables
 set -o errexit # fail fast
 
 
-DIRS="/Library/LaunchAgents ${HOME}/Library/LaunchAgents /Library/LaunchDaemons /System/Library/LaunchDaemons"
-SUBCOMMAND="$1"
-PATTERN="$2"
+LUNCHY_DIRS="/Library/LaunchAgents ${HOME}/Library/LaunchAgents /Library/LaunchDaemons /System/Library/LaunchDaemons"
+LUNCHY_SUBCOMMAND="$1"
+LUNCHY_PATTERN="$2"
 
 lunchy_start() {
-    local pfile=$(find $DIRS -iname "*.plist" | grep -i $PATTERN)
-    local count=$(find $DIRS -iname "*.plist" | grep -i $PATTERN |wc -l)
+    local pfile=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN)
+    local count=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN |wc -l)
 
     if [ $count -gt 1 ]; then
-      echo "Multiple daemons found matching '$PATTERN'. You need to be more specific. Matches found are:\n$pfile"
+      echo "Multiple daemons found matching '$LUNCHY_PATTERN'. You need to be more specific. Matches found are:\n$pfile"
     elif [ $count -lt 1 ]; then
-      echo "No daemon found matching '$PATTERN'"
+      echo "No daemon found matching '$LUNCHY_PATTERN'"
     else
       echo "launchctl load #{force}#{write} $pfile"
-      echo "started $PATTERN"
+      echo "started $LUNCHY_PATTERN"
     fi
 }
 
 lunchy_stop() {
-    local pfile=$(find $DIRS -iname "*.plist" | grep -i $PATTERN)
-    local count=$(find $DIRS -iname "*.plist" | grep -i $PATTERN |wc -l)
+    local pfile=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN)
+    local count=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN |wc -l)
 
     if [ $count -gt 1 ]; then
-      echo "Multiple daemons found matching '$PATTERN'. You need to be more specific. Matches found are:\n$pfile"
+      echo "Multiple daemons found matching '$LUNCHY_PATTERN'. You need to be more specific. Matches found are:\n$pfile"
     elif [ $count -lt 1 ]; then
-      echo "No daemon found matching '$PATTERN'"
+      echo "No daemon found matching '$LUNCHY_PATTERN'"
     else
       echo "launchctl unload #{force}#{write} $pfile"
-      echo "stopped $PATTERN"
+      echo "stopped $LUNCHY_PATTERN"
     fi
 }
 
@@ -46,7 +46,7 @@ lunchy_restart() {
 }
 
 main() {
-  local subcommand_to_run="lunchy_$SUBCOMMAND"
+  local subcommand_to_run="lunchy_$LUNCHY_SUBCOMMAND"
   echo $subcommand_to_run
   $subcommand_to_run
 }
