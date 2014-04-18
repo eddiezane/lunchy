@@ -7,19 +7,18 @@ fi
 set -o nounset # avoid use of undefined variables
 set -o errexit # fail fast
 
-PATTERN="$1"
 
 DIRS="/Library/LaunchAgents ${HOME}/Library/LaunchAgents /Library/LaunchDaemons /System/Library/LaunchDaemons"
+SUBCOMMAND="$1"
+PATTERN="$2"
 
-
-lunchy() {
-
+lunchy_start() {
     local pfile=$(find $DIRS -iname "*.plist" | grep -i $PATTERN)
     local count=$(find $DIRS -iname "*.plist" | grep -i $PATTERN |wc -l)
 
-    if [[ count -gt 1 ]]; then
+    if [ $count -gt 1 ]; then
       echo "Multiple daemons found matching '$PATTERN'. You need to be more specific. Matches found are:\n$pfile"
-    elif [[ count -lt 1 ]]; then
+    elif [ $count -lt 1 ]; then
       echo "No daemon found matching '$PATTERN'"
     else
       echo "launchctl load #{force}#{write} $pfile"
