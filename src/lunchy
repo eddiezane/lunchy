@@ -39,3 +39,11 @@ lunchy_stop() {
       echo "stopped $PATTERN"
     fi
 }
+
+main() {
+  local subcommand_to_run="lunchy_$SUBCOMMAND"
+  echo $subcommand_to_run
+  $subcommand_to_run
+}
+
+main
