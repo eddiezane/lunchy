@@ -40,6 +40,11 @@ lunchy_stop() {
     fi
 }
 
+lunchy_restart() {
+  lunchy_stop
+  lunchy_start
+}
+
 main() {
   local subcommand_to_run="lunchy_$SUBCOMMAND"
   echo $subcommand_to_run
