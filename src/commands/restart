@@ -1,0 +1,4 @@
+lunchy_restart() {
+  lunchy_stop
+  lunchy_start
+}

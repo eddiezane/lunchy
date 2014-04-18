@@ -1,0 +1,4 @@
+lunchy_status() {
+  local cmd="launchctl list"
+  echo "$cmd | grep -i $LUNCHY_PATTERN"
+}
