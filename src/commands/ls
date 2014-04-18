@@ -1,0 +1,3 @@
+lunchy_ls() {
+  echo find "$LUNCHY_DIRS" -iname "*.plist" | grep -i "$LUNCHY_PATTERN"
+}
