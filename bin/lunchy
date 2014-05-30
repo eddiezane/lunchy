@@ -27,6 +27,10 @@ option_parser = OptionParser.new do |opts|
     CONFIG[:long] = true
   end
 
+  opts.on("-s", "--symlink", "Use a symlink for installation") do |verbose|
+    CONFIG[:symlink] = true
+  end
+
   opts.separator <<-EOS
 
 Supported commands:
@@ -37,7 +41,7 @@ Supported commands:
  stop [-w] [pattern]     Stop the first agent matching [pattern]
  restart [pattern]       Stop and start the first agent matching [pattern]
  status [pattern]        Show the PID and label for all agents, with optional [pattern] filter
- install [file]          Install [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
+ install [-s] [file]     Install [file] to ~/Library/LaunchAgents or /Library/LaunchAgents (whichever it finds first)
  show [pattern]          Show the contents of the launchctl daemon file
  edit [pattern]          Open the launchctl daemon file in the default editor (EDITOR environment variable)
 
