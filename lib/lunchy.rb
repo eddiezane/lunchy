@@ -67,6 +67,20 @@ class Lunchy
     end
   end
 
+  def uninstall(params)
+    raise ArgumentError, "uninstall [name]" if params.empty?
+
+    stop(params.dup)
+
+    with_match params[0] do |name, path|
+      if File.exist?(path)
+        FileUtils.rm(path)
+        puts "uninstalled #{name}"
+      end
+    end
+  end
+  alias_method :rm, :uninstall
+
   def show(params)
     raise ArgumentError, "show [name]" if params.empty?
 
@@ -106,7 +120,7 @@ class Lunchy
     CONFIG[:symlink]
   end
 
-  def with_match name
+  def with_match(name)
     files = plists.select {|k,_| k =~ /#{name}/i }
     files = Hash[files] if files.is_a?(Array) # ruby 1.8
 
