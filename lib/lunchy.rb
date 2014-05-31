@@ -42,7 +42,7 @@ class Lunchy
 
   def ls(params)
     agents = plists.keys
-    agents = agents.grep(/#{params[0]}/) if !params.empty?
+    agents = agents.grep(/#{params[0]}/i) if !params.empty?
     if long
       puts agents.map { |agent| plists[agent] }.sort.join("\n")
     else
