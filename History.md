@@ -1,6 +1,15 @@
 Changes
 ================
 
+0.8.0
+----
+
+- Add 'uninstall' command to remove installed plist
+- Add '-s, --symlink' option to symlink on install
+- Add Rakefile for development
+- Make clear that license is MIT, thanks [bf4!](https://github.com/bf4)
+- Ignore case on ls, thanks [jpcirrus!](https://github.com/jpcirrus)
+
 0.7.0
 ----
 

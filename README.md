@@ -13,6 +13,7 @@ Lunchy aims to be that friendly tool by wrapping launchctl and providing a few s
  - restart [pattern]
  - status [pattern]
  - install [file]
+ - uninstall [pattern]
  - show [pattern]
  - edit [pattern]
 
