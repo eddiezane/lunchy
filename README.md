@@ -1,6 +1,8 @@
 lunchy
 =================
 
+[![Gem Version](https://badge.fury.io/rb/lunchy.svg)](http://badge.fury.io/rb/lunchy)
+
 A friendly wrapper for launchctl.  Start your agents and go to lunch!
 
 Don't you hate OSX's launchctl?  You have to give it exact filenames.  The syntax is annoying different from Linux's nice, simple init system and overly verbose.  It's just not a very developer-friendly tool.
