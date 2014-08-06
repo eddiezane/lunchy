@@ -116,6 +116,6 @@ Dir[File.expand_path('../dist/**/*.rake', __FILE__)].each do |rake|
 end
 
 desc 'Release the latest version'
-task 'release' => %w(tgz:release brew:release manifest:update) do
+task 'standalone:release' => %w(tgz:release brew:release manifest:update) do
   puts("Released v#{version}")
 end
