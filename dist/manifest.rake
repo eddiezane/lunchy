@@ -4,6 +4,6 @@ task "manifest:update" do
       file.puts version
     end
     puts "Current version: #{version}"
-    store "#{dir}/VERSION", Lunchy::VERSION
+    store "#{dir}/VERSION", "lunchy/VERSION"
   end
 end
