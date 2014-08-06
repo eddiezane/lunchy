@@ -16,8 +16,7 @@ task "brew:release" => pkg("lunchy-#{version}.tgz.sha256") do |t|
       # Push into repo
       sh "#{cd} && git add ."
       sh "#{cd} && git commit -m 'Version bump'"
-      sh "#{cd} && git tag v#{version}"
-      sh "#{cd} && git push origin master --tags"
+      sh "#{cd} && git push origin master"
     rescue
       nil
     end
