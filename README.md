@@ -46,7 +46,7 @@ Installation
     
 [Homebrew Standalone](https://github.com/merqlove/homebrew-lunchy) 
     
-    brew tap merqlove-lunchy && brew install lunchy 
+    brew tap merqlove/lunchy && brew install lunchy 
 
 Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help welcome.
 
