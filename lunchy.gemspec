@@ -12,9 +12,7 @@ Gem::Specification.new do |s|
   s.licenses    = ['MIT']
 
   s.add_development_dependency "rake"
-  s.add_development_dependency 'rubyzip'
   s.add_development_dependency 's3'
-  s.add_development_dependency 'json'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
