@@ -27,9 +27,8 @@ class Lunchy
   end
 
   def status(params)
-    pattern = params[0]
+    pattern = pattern_for_grep params[0]
     cmd = "launchctl list"
-
     unless verbose?
       agents = plists.keys.map { |k| "-e \"#{k}\"" }.join(" ")
       cmd << " | grep -i #{agents}"
@@ -41,8 +40,9 @@ class Lunchy
   end
 
   def ls(params)
+    pattern = pattern_regex params[0]
     agents = plists.keys
-    agents = agents.grep(/#{params[0]}/i) if !params.empty?
+    agents = agents.grep(pattern) if !params.empty?
     if long
       puts agents.map { |agent| plists[agent] }.sort.join("\n")
     else
@@ -104,6 +104,10 @@ class Lunchy
 
   private
 
+  def exact
+    CONFIG[:exact]
+  end
+
   def force
     CONFIG[:force] and '-F '
   end
@@ -120,14 +124,22 @@ class Lunchy
     CONFIG[:symlink]
   end
 
+  def pattern_for_grep(s)
+    exact ? "\\b#{s}\\b" : s if s
+  end
+
+  def pattern_regex(s)
+    /#{pattern_for_grep(s)}/i
+  end
+
   def with_match(name)
-    files = plists.select {|k,_| k =~ /#{name}/i }
+    files = plists.select {|k,_| k =~ pattern_regex(name) }
     files = Hash[files] if files.is_a?(Array) # ruby 1.8
 
     if files.size > 1
       puts "Multiple daemons found matching '#{name}'. You need to be more specific. Matches found are:\n#{files.keys.join("\n")}"
     elsif files.empty?
-      puts "No daemon found matching '#{name}'" unless name
+      puts "No daemon found matching '#{name}' #{exact ? 'exactly' : nil}" if name
     else
       yield(*files.to_a.first)
     end
