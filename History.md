@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.9.0
+----
+
+- Add flag for exact match - [bunnymatic](https://github.com/bunnymatic) via [#51](https://github.com/eddiezane/lunchy/pull/51)
+
 0.8.0
 ----
 
