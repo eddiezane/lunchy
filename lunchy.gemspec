@@ -1,6 +1,22 @@
 # -*- encoding: utf-8 -*-
 require "./lib/lunchy"
 
+post_install_message = <<-EOS
+-------
+
+Thanks for installing Lunchy.  We know you're going to love it!
+
+If you want to add tab-completion (for bash), add the following 
+to your .bash_profile, .bashrc or .profile
+
+   LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
+   if [ -f $LUNCH_DIR/lunchy-completion.bash ]; then
+     . $LUNCHY_DIR/lunchy-completion.bash
+   fi
+
+-------
+EOS
+
 Gem::Specification.new do |s|
   s.name        = "lunchy"
   s.version     = Lunchy::VERSION
@@ -9,6 +25,7 @@ Gem::Specification.new do |s|
   s.email       = ["mperham@gmail.com"]
   s.homepage    = "http://github.com/mperham/lunchy"
   s.summary     = s.description = %q{Friendly wrapper around launchctl}
+  s.post_install_message = post_install_message
   s.licenses    = ['MIT']
 
   s.add_development_dependency "rake"
