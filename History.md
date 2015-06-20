@@ -1,6 +1,12 @@
 Changes
 ================
 
+0.10.1
+----
+
+- Fix typo in bash script via [#54](https://github.com/eddiezane/lunchy/pull/54)
+
+
 0.10.0
 ----
 
