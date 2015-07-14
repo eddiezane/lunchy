@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
   s.name        = "lunchy"
   s.version     = Lunchy::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Mike Perham"]
+  s.authors     = ["Mike Perham", "Eddie Zaneski", "Mr Rogers"]
   s.email       = ["mperham@gmail.com"]
-  s.homepage    = "http://github.com/mperham/lunchy"
+  s.homepage    = "http://github.com/eddiezane/lunchy"
   s.summary     = s.description = %q{Friendly wrapper around launchctl}
   s.post_install_message = post_install_message
   s.licenses    = ['MIT']
