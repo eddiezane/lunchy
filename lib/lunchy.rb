@@ -36,6 +36,7 @@ class Lunchy
 
     cmd.gsub!('.','\.')
     cmd << " | grep -i \"#{pattern}\"" if pattern
+    print "PID\tStatus\tLabel\n"
     execute(cmd)
   end
 
