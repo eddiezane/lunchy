@@ -10,7 +10,7 @@ function _lunchy {
   case "$cur_pos" in
     1) COMPREPLY=($(compgen -W 'ls list start stop restart status install uninstall show edit' -- $cur))
        ;;
-    *) COMPREPLY=($(compgen -W '$(lunchy list)' -- $cur))
+    *) COMPREPLY=($(compgen -W "$(lunchy list)" -- $cur))
        ;;
   esac
 }
