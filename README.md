@@ -3,7 +3,7 @@ lunchy
 
 A friendly wrapper for launchctl.  Start your agents and go to lunch!
 
-Don't you hate OSX's launchctl?  You have to give it exact filenames.  The syntax is annoying different from Linux's nice, simple init system and overly verbose.  It's just not a very developer-friendly tool.
+Don't you hate OSX's launchctl?  You have to give it exact filenames.  The syntax is annoyingly different from Linux's nice, simple init system and overly verbose.  It's just not a very developer-friendly tool.
 
 Lunchy aims to be that friendly tool by wrapping launchctl and providing a few simple operations that you perform all the time:
 
