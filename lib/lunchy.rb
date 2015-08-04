@@ -126,7 +126,7 @@ class Lunchy
   end
 
   def pattern_for_grep(s)
-    exact ? "\\b#{s}\\b" : s if s
+    exact ? "^#{s}$" : s if s
   end
 
   def pattern_regex(s)
