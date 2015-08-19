@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.10.3
+----
+
+- Fix regex for exact matching
+
 0.10.1
 ----
 
