@@ -1,6 +1,11 @@
 Changes
 ================
 
+0.10.4
+----
+
+- Fix autoload flag on zsh via [#67](https://github.com/eddiezane/lunchy/pull/67)
+
 0.10.3
 ----
 
