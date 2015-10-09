@@ -3,6 +3,6 @@
 # on github : osaris
 #
 
-autoload bashcompinit
+autoload -U bashcompinit
 bashcompinit
 source $(dirname $0)/lunchy-completion.bash
