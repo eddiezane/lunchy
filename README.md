@@ -1,5 +1,4 @@
-lunchy
-=================
+# lunchy
 
 A friendly wrapper for launchctl.  Start your agents and go to lunch!
 
@@ -39,23 +38,25 @@ and:
 The original name was supposed to be launchy.  Lunchy isn't a great name but gem names are like domains, most of the good ones are taken.  :-(
 
 
-Installation
----------------
+## Installation
+
+### Using RubyGems
 
     gem install lunchy
 
 Lunchy is written in Ruby because I'm a good Ruby developer and a poor Bash developer.  Help is welcome.
 
+### Using Homebrew
 
-Thanks
----------------
+    brew install lunchy
+
+## Thanks
 
 Thanks to all the individual contributors who've improved Lunchy, see credits in History.md.
 
 Lunchy was written as part of my project time at [Carbon Five](http://carbonfive.com).  [They're hiring](http://www.carbonfive.com/careers/) if you love working on Ruby and open source.
 
 
-About
------------------
+## About
 
 Mike Perham, [@mperham](http://twitter.com/mperham), [mikeperham.com](http://mikeperham.com/)
