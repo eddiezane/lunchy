@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# enable debug mode
+if [ "$DEBUG" = "yes" ]; then
+    set -x
+fi
+set -o nounset # avoid use of undefined variables
+set -o errexit # fail fast
+
+BASEDIR=$(dirname $0)
+LUNCHY_DIRS="/Library/LaunchAgents ${HOME}/Library/LaunchAgents /Library/LaunchDaemons /System/Library/LaunchDaemons"
+LUNCHY_SUBCOMMAND="$1"
+LUNCHY_PATTERN="$2"
+
+
+main() {
+  local subcommand_to_run="lunchy_$LUNCHY_SUBCOMMAND"
+  . $BASEDIR/commands/$LUNCHY_SUBCOMMAND
+  echo $subcommand_to_run
+  $subcommand_to_run
+}
+
+main

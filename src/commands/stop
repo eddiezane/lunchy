@@ -1,0 +1,15 @@
+#!/bin/sh
+
+lunchy_stop() {
+    local pfile=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN)
+    local count=$(find $LUNCHY_DIRS -iname "*.plist" | grep -i $LUNCHY_PATTERN |wc -l)
+
+    if [ $count -gt 1 ]; then
+      echo "Multiple daemons found matching '$LUNCHY_PATTERN'. You need to be more specific. Matches found are:\n$pfile"
+    elif [ $count -lt 1 ]; then
+      echo "No daemon found matching '$LUNCHY_PATTERN'"
+    else
+      echo "launchctl unload #{force}#{write} $pfile"
+      echo "stopped $LUNCHY_PATTERN"
+    fi
+}

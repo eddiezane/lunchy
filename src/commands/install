@@ -1,0 +1,13 @@
+lunchy_install() {
+  local filename=$LUNCHY_PATTERN
+  local install_dirs="${HOME}/Library/LaunchAgents /Library/LaunchAgents"
+
+  for dir in $install_dirs
+  do
+    cp "$filename" $dir/"$filename"
+    if [ $? -eq 0 ]; then
+      break
+    fi
+    echo "$filename installed to $dir"
+  done
+}
